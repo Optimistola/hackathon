@@ -88,28 +88,13 @@ function updateCounter() {
 }
 
 for (let i = 0; i < excludeFromActive.length; i++) {
-  excludeFromActive[i].addEventListener("mouseover", function (e) {
-    if (e.target.classList.contains("initial")) {
-      //without delay
-      e.target.innerHTML = `<svg class="initial" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-            <circle cx="12" cy="12" r="10" fill="#D9D9D9" stroke="#8A8A8A" stroke-width="2.08333" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>`;
+
       //after delay
       setTimeout(() => {
         e.target.innerHTML = `<svg class="initial" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
             <circle cx="12" cy="12" r="10" stroke="#8A8A8A" stroke-width="2.08333" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>`;
       }, 100);
-    }
-  });
-
-  excludeFromActive[i].addEventListener("mouseout", function (e) {
-    if (e.target.classList.contains("initial")) {
-      e.target.innerHTML = `<svg class="initial" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                <circle cx="12" cy="12" r="10" stroke="#8A8A8A" stroke-width="2.08333" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="5 5"/>
-            </svg>`;
-    }
-  });
 
   excludeFromActive[i].addEventListener("click", (e) => {
     let currentPressedBtn = e.currentTarget;
