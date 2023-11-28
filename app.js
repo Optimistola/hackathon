@@ -40,24 +40,15 @@ let btnsChild = btns.querySelectorAll(".container2");
 
 for (let i = 0; i < btnsChild.length; i++) {
   btnsChild[i].addEventListener("click", (e) => {
-    if (
-      e.target.classList.contains("excludeFromActive") ||
-      e.target.closest(".excludeFromActive")
-    ) {
-      //the excluded element will do the updating progress bar when any of the guide is checked or unchecked
-      //console.log("Excluded element clicked");
-      return;
-    }
-
     let currentPressedBtn = e.currentTarget;
-
-    // Change the button color to blue momentarily
+    let initial = currentPressedBtn.querySelector(".initial");
+    let final = currentPressedBtn.querySelector(".finally");
     btnsChild.forEach((p) => {
       if (p !== currentPressedBtn) {
         p.classList.remove("active");
         p.querySelectorAll(".k").forEach((child) => {
           child.classList.add("not-active");
-          //console.log(child);
+          // console.log(child);
           p.querySelector(".title").classList.remove("active-title");
         });
       } else {
@@ -65,13 +56,52 @@ for (let i = 0; i < btnsChild.length; i++) {
         p.querySelectorAll(".k").forEach((child) => {
           child.classList.remove("not-active");
           p.querySelector(".title").classList.add("active-title");
-          //console.log(child);
+          // console.log(child);
         });
       }
     });
+
+    if (
+      e.target.classList.contains("excludeFromActive") ||
+      (e.target.closest(".excludeFromActive") &&
+        e.target.classList.contains("finally"))
+    ) {
+      return;
+    } else {
+      if (
+        e.target.classList.contains("excludeFromActive") ||
+        (e.target.closest(".excludeFromActive") &&
+          e.target.classList.contains("initial"))
+      ) {
+        let j = i + 1;
+        // the excluded element will do the updating progress bar when any of the guide is checked or unchecked
+        // console.log("Excluded element clicked");
+        if (j <= 4) {
+          btnsChild.forEach((p) => {
+            if (p !== btnsChild[j]) {
+              p.classList.remove("active");
+              p.querySelectorAll(".k").forEach((child) => {
+                child.classList.add("not-active");
+                // console.log(child);
+                p.querySelector(".title").classList.remove("active-title");
+              });
+            } else {
+              console.log(btnsChild[j]);
+              btnsChild[j].classList.add("active");
+              btnsChild[j].querySelectorAll(".k").forEach((child) => {
+                child.classList.remove("not-active");
+                btnsChild[j]
+                  .querySelector(".title")
+                  .classList.add("active-title");
+                // console.log(child);
+              });
+            }
+          });
+        }
+      }
+    }
   });
 }
-
 let excludeFromActive = document.querySelectorAll(".excludeFromActive");
 let progressStatus = document.querySelector(".progress-status");
 let progressBarFill = document.querySelector(".progress-bar-fill");
@@ -88,14 +118,6 @@ function updateCounter() {
 }
 
 for (let i = 0; i < excludeFromActive.length; i++) {
-
-      //after delay
-      setTimeout(() => {
-        e.target.innerHTML = `<svg class="initial" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-            <circle cx="12" cy="12" r="10" stroke="#8A8A8A" stroke-width="2.08333" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>`;
-      }, 100);
-
   excludeFromActive[i].addEventListener("click", (e) => {
     let currentPressedBtn = e.currentTarget;
 
